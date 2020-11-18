@@ -17,7 +17,7 @@ O SRP diz que cada módulo (classe) de um programa deve ter uma, e apenas uma, r
 
 O exemplo a seguir é um trecho de código de uma classe de um trabalho da disciplina Organização e Recuperação da Informação, ministrada no segundo semestre de 2019 no DC-UFSCar. A classe em questão representa os metadados de uma tabela do sistema gerenciador de banco de dados que foi desenvolvido. Esse exemplo não segue o SRP.
 
-```c
+```cpp
     class Metadata
     {
         public:
@@ -50,7 +50,7 @@ Primeiramente, o construtor da classe (`Metadata()`) realiza um acesso à disco 
 
 Poderiamos, então, criar a classe `MetadataModel`, para cuidar das operações em disco, e a `MetadataViewer`, para cuidar da apresentação dos dados. Assim, `Metadata` é apenas a abstração do arquivo internamente. Foram alterações pequenas, mas que deixam bem claras a separação dos papéis.
 
-```c
+```cpp
 
    class MetadataModel
     {
