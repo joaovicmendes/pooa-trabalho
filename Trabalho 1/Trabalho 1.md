@@ -97,8 +97,8 @@ Por fim, é importante adicionar que esse princípio de separação de papéis n
 ## Referências
 - Wikipédia - [Programming Paradigm](https://en.wikipedia.org/wiki/Programming_paradigm)
 - Wikipédia - [Object-Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming)
-- MARTIN, R. C. - [Single Responsability Principle](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) 
-- LUCRÉDIO, D. - Vídeo Aula: [Qual a Melhor Linguagem Orientada à Objetos](https://www.youtube.com/watch?v=gbgV5jKZfTk&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=1)
-- LUCRÉDIO, D. - Vídeo Aula: [Princípios SOLID na programação orientada a objetos - Princípio da Responsabilidade Única](https://www.youtube.com/watch?v=wwg-gWTuB1o&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=2)
-- LUCRÉDIO, D. - Vídeo Aula: [Design especulativo - Princípios da programação orientada a objetos](https://www.youtube.com/watch?v=alwkvSaODHc&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=3)
+- Martin, R. C. - [Single Responsability Principle](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) 
+- Lucrédio, D. - Vídeo Aula: [Qual a Melhor Linguagem Orientada à Objetos](https://www.youtube.com/watch?v=gbgV5jKZfTk&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=1)
+- Lucrédio, D. - Vídeo Aula: [Princípios SOLID na programação orientada a objetos - Princípio da Responsabilidade Única](https://www.youtube.com/watch?v=wwg-gWTuB1o&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=2)
+- Lucrédio, D. - Vídeo Aula: [Design especulativo - Princípios da programação orientada a objetos](https://www.youtube.com/watch?v=alwkvSaODHc&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=3)
 
