@@ -88,7 +88,7 @@ Poderiamos, então, criar a classe `MetadataModel`, para cuidar das operações 
     };
 ```
 
-A decisão especulativa de colocar todas as informações em um mesmo módulo se deu completamente por inesperiência e desconhecimento sobre os benefícios da separação de papéis, e não por requisitos mal específicados.
+A decisão especulativa de colocar todas as informações em um mesmo módulo se deu completamente por inexperiência e desconhecimento sobre os benefícios da separação de papéis, e não por requisitos mal específicados.
 
 Por fim, é importante adicionar que esse princípio de separação de papéis não deve ser tratada como uma regra obrigatória sempre. A complexidade da aplicação e os custos relacionados à alteração de código já existente devem ser consideradas para tomar a decisão de dividir ou não.
 
