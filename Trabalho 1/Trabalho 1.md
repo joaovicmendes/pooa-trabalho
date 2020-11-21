@@ -1,4 +1,4 @@
-# O Princípio da Responsabilidade Única - SOLID
+# Princípio da Responsabilidade Única
 
 Universidade Federal de São Carlos – UFSCar \
 Departamento de Computação \
