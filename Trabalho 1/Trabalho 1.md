@@ -40,7 +40,7 @@ O exemplo a seguir é um trecho de código de um trabalho da disciplina Organiza
         void print() const;
 
         private:
-        {...}
+        ...
     };
 ```
 
@@ -83,6 +83,7 @@ Poderiamos, então, realizar modificações para melhor separar os papéis exerc
         std::string get_table() const;
         std::string type_of_field(const std::string& field) const;
         std::vector<Field> get_fields() const;
+        ...
     };
 ```
 
