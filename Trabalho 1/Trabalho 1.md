@@ -89,9 +89,9 @@ Poderia-se, então, realizar modificações para melhor separar os papéis exerc
 
 Para construir a classe `Metadata` bastaria fazer uma chamada do tipo `Metadata m = MetadaModel::Build(nome_tabela)`. Para a visualização, `MetadataViewer::Print(m)`. E para salvar as alterações, `MetadaModel::Save(m)`
 
-Nesse caso, em particular, a decisão de colocar todas as informações em um mesmo módulo se deu por inexperiência e desconhecimento sobre as vantagens da separação de papéis. No entando, é plausivél que isso seja resultado de design especulativo fruto de requisitos mal especificados.
+Nesse caso, em particular, a decisão de colocar todas as informações em um mesmo módulo se deu por inexperiência e desconhecimento sobre as vantagens da separação de papéis. No entando, é plausível que isso seja resultado de um design especulativo fruto de requisitos mal especificados.
 
-Por fim, é importante salientar que esse princípio não deve ser tratado como uma regra obrigatória. A complexidade da aplicação e os custos relacionados à alteração de código já existente devem ser consideradas para tomar a decisão de dividir ou não.
+Por fim, é importante salientar que esse princípio não deve ser tratado como uma regra obrigatória. A complexidade da aplicação e os custos relacionados à alterações no código, para cumprir o princípio, devem ser consideradas na tomada da decisão de dividir ou não.
 
 
 ## Referências
