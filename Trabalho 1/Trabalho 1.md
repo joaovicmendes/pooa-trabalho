@@ -44,7 +44,7 @@ O exemplo a seguir é um trecho de código de um trabalho da disciplina Organiza
     };
 ```
 
-O construtor da classe (`Metadata()`) realiza um acesso à disco para recuperar os metadados de determinada tabela e carregar para a memória do programa. Existem, diversos métodos de manipulação das informações sobre a tabela nessa classe (setters do nome da tabela, da presença de um índice ou mesmo a adição que um campo à tabela). Existe um método `save()`, que atualiza para o disco as alterações feitas pelo programa. Por fim, existe um método `print()` que apresenta os metadados ao usuário. Ou seja, a classe cumpre pelo menos três papeis diferentes.
+O construtor da classe (`Metadata()`) realiza um acesso à disco para recuperar os metadados de determinada tabela e carregar para a memória do programa. Existem, diversos métodos de manipulação das informações sobre a tabela nessa classe (setters do nome da tabela, da presença de um índice ou mesmo a adição que um campo à tabela). Existe um método `save()`, que atualiza para o disco as alterações feitas pelo programa. Por fim, existe um método `print()` que apresenta os metadados ao usuário. Ou seja, a classe cumpre três papeis diferentes, portanto não segue o Princípio da Responsabilidade Única.
 
 Poderia-se, então, realizar modificações para melhor separar os papéis exercidos por essa classe. Uma opção seria criar a classe `MetadataModel`, para cuidar das operações em disco, e a `MetadataViewer`, para cuidar da apresentação dos dados. Assim, `Metadata` serve apenas como abstração do arquivo internamente.
 
@@ -87,7 +87,7 @@ Poderia-se, então, realizar modificações para melhor separar os papéis exerc
     };
 ```
 
-Para construir a classe `Metadata` bastaria fazer uma chamada do tipo `Metadata m = MetadaModel::Build(nome_tabela)`. Para a visualização, `MetadataViewer::Print(m)`. E para salvar as alterações, `MetadaModel::Save(m)`
+Para construir a classe `Metadata` bastaria fazer uma chamada do tipo `Metadata m = MetadaModel::Build(nome_tabela)`. Para a visualização, `MetadataViewer::Print(m)`. E para salvar as alterações, `MetadaModel::Save(m)`. Agora, o código segue o SRP.
 
 Nesse caso, em particular, a decisão de colocar todas as informações em um mesmo módulo se deu por inexperiência e desconhecimento sobre as vantagens da separação de papéis. No entando, é plausível que isso seja resultado de um design especulativo fruto de requisitos mal especificados.
 
