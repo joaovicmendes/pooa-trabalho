@@ -9,13 +9,11 @@ RA: 758943
 
 ---
 
-Em computação existem diversos paradigmas de programação, os quais classificam linguagens baseado nas funcionalidades de cada uma. Um dos mais utilizados é a *Orientação à Objetos*, na qual informação (atributos) e subrotinas (métodos) são encapsulados em elementos chamados classes, das quais se instanciam objetos. A execução do programa se da pela comunicação entre objetos distintos.
+A *Orientação à Objetos* é um dos mais populares paradigmas de linguagens de programação. Por isso, muitos estudos são realizados buscando encontrar métodos de tornar um código orientado à objetos simples de se entender, flexível e de fácil manutenção. Surgiram, então, diversos príncipios que guiam como um código deve ser planejado e organizado. Um dos principais é o padrão **SOLID**, composto por cinco princípios que buscam atingir as qualidades de código mencionadas. Vamos apresentar o primeiro dos cinco, o **S**ingle Responsability Principle (Princípio da Responsabilidade Única) ou SRP.
 
-Por ser um dos mais populares, muitos estudos são realizados buscando encontrar métodos de tornar um código orientado à objetos simples de se entender, flexível e  de fácil manutenção. Surgiram, então, diversos príncipios que guiam como um código deve ser planejado e organizado. Um deles é o padrão *SOLID*, composto por cinco princípios que buscam atingir as qualidades de código mencionadas. Vamos apresentar o primeiro dos cinco, o **S**ingle Responsability Principle (Princípio da Responsabilidade Única) ou SRP, abreviado.
+O SRP propõe que cada módulo (classe) de um programa deve ter uma, e apenas uma, razão para ser alterada. Ou seja, sugere que cada componente tenha uma função muito bem definida dentro do software, seja ela apresentar dados para um usuário, acessar um banco de dados ou realizar alguma operação matemática realciona à regra de negócio - sem haver intersecção entre funcionalidades num mesmo módulo. *Robert C. Martin*, o criador do termo SPR, afirma que a ideia do termo está amplamente relacionada com as pessoas envolvidas com essas funcionalidades. Ou seja, a regra de negócio é responsabilidade de um Diretor de Operações, por exemplo, enquanto o armazenamento dos dados em um *SGBD* ou no disco é responsabilidade do Diretor de Tecnologia. Assim, esses módulos deveriam estar separados em um código que respeita o Princípio da Responsábilidade Única.
 
-O SRP diz que cada módulo (classe) de um programa deve ter uma, e apenas uma, razão para ser alterada. Ou seja, esse ele sugere que cada componente tenha uma função muito bem definida dentro do software, seja ela apresentar dados para um usuário, acessar um banco de dados ou realizar alguma operação matemática realciona à regra de negócio - mas sem haver intersecção entre funcionalidades num mesmo módulo.
-
-O exemplo a seguir é um trecho de código de uma classe de um trabalho da disciplina Organização e Recuperação da Informação, ministrada no segundo semestre de 2019 no DC-UFSCar. A classe em questão representa os metadados de uma tabela do sistema gerenciador de banco de dados que foi desenvolvido. Esse exemplo não segue o SRP.
+O exemplo a seguir é um trecho de código de um trabalho da disciplina Organização e Recuperação da Informação, ministrada no segundo semestre de 2019 no DC-UFSCar. A classe em questão serve como uma abstração dos metadados de uma tabela do sistema gerenciador de banco de dados que foi desenvolvido.
 
 ```cpp
     class Metadata
@@ -46,23 +44,23 @@ O exemplo a seguir é um trecho de código de uma classe de um trabalho da disci
     };
 ```
 
-Primeiramente, o construtor da classe (`Metadata()`) realiza um acesso à disco para recuperar os metadados de determinada tabela e carregar para a memória do programa. Existem, também, diversos métodos de manipulação das informações sobre a tabela nessa classe. Existe um método `save()`, que atualiza para o disco as alterações feitas pelo programa. Por fim, existe um método `print()` que apresenta os metadados ao usuário. Ou seja, a classe cumpre pelo menos três papeis diferentes.
+Observemos as funções que os métodos da classe possuem. O construtor da classe (`Metadata()`) realiza um acesso à disco para recuperar os metadados de determinada tabela e carregar para a memória do programa. Existem, diversos métodos de manipulação das informações sobre a tabela nessa classe (setters do nome da tabela, da presença de um índice ou mesmo a adição que um campo à tabela). Existe um método `save()`, que atualiza para o disco as alterações feitas pelo programa. Por fim, existe um método `print()` que apresenta os metadados ao usuário. Ou seja, a classe cumpre pelo menos três papeis diferentes.
 
-Poderiamos, então, criar a classe `MetadataModel`, para cuidar das operações em disco, e a `MetadataViewer`, para cuidar da apresentação dos dados. Assim, `Metadata` é apenas a abstração do arquivo internamente. Foram alterações pequenas, mas que deixam bem claras a separação dos papéis.
+Poderiamos, então, realizar modificações para melhor separar os papéis exercidos por essa classe. Pode-se criar a classe `MetadataModel`, para cuidar das operações em disco, e a `MetadataViewer`, para cuidar da apresentação dos dados. Assim, `Metadata` serve apenas como abstração do arquivo internamente.
 
 ```cpp
 
    class MetadataModel
     {
-        static Metadata build(const std::string& table);
-        static void save(const Metadata& m);
+        static Metadata Build(const std::string& table);
+        static void Save(const Metadata& m);
         ...
     }
 
     class MetadataViewer
     {
         public:
-        static void print(const Metadata& m);
+        static void Print(const Metadata& m);
         ...
     }
 
@@ -88,17 +86,17 @@ Poderiamos, então, criar a classe `MetadataModel`, para cuidar das operações 
     };
 ```
 
-A decisão especulativa de colocar todas as informações em um mesmo módulo se deu completamente por inesperiência e desconhecimento sobre os benefícios da separação de papéis, e não por requisitos mal específicados.
+Para construir a classe `Metadata` poderiamos fazer uma chamada do tipo `Metadata m = MetadaModel::Build(nome_tabela)`. Para a visualização, poderiamos chamar `MetadataViewer::Print(m)`.
 
-Por fim, é importante adicionar que esse princípio de separação de papéis não deve ser tratada como uma regra obrigatória sempre. A complexidade da aplicação e os custos relacionados à alteração de código já existente devem ser consideradas para tomar a decisão de dividir ou não.
+Nesse caso, em particular, a decisão de colocar todas as informações em um mesmo módulo se deu por inexperiência e desconhecimento sobre as vantagens da separação de papéis. No entando, é plausivél que isso seja resultado de design especulativo fruto de requisitos mal especificados.
 
----
+Por fim, é importante dizer que esse princípio não deve ser tratado como uma regra obrigatória. A complexidade da aplicação e os custos relacionados à alteração de código já existente devem ser consideradas para tomar a decisão de dividir ou não.
+
 
 ## Referências
-- Wikipédia - [Programming Paradigm](https://en.wikipedia.org/wiki/Programming_paradigm)
-- Wikipédia - [Object-Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming)
-- Martin, R. C. - [Single Responsability Principle](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) 
-- Lucrédio, D. - Vídeo Aula: [Qual a Melhor Linguagem Orientada à Objetos](https://www.youtube.com/watch?v=gbgV5jKZfTk&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=1)
-- Lucrédio, D. - Vídeo Aula: [Princípios SOLID na programação orientada a objetos - Princípio da Responsabilidade Única](https://www.youtube.com/watch?v=wwg-gWTuB1o&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=2)
-- Lucrédio, D. - Vídeo Aula: [Design especulativo - Princípios da programação orientada a objetos](https://www.youtube.com/watch?v=alwkvSaODHc&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=3)
-
+- Wikipédia. [Programming Paradigm](https://en.wikipedia.org/wiki/Programming_paradigm)
+- Wikipédia. [Object-Oriented Programming](https://en.wikipedia.org/wiki/Object-oriented_programming)
+- Martin, R. C. [Single Responsability Principle](https://blog.cleancoder.com/uncle-bob/2014/05/08/SingleReponsibilityPrinciple.html) 
+- Lucrédio, D. Vídeo Aula: [Qual a Melhor Linguagem Orientada à Objetos](https://www.youtube.com/watch?v=gbgV5jKZfTk&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=1)
+- Lucrédio, D. Vídeo Aula: [Princípios SOLID na programação orientada a objetos - Princípio da Responsabilidade Única](https://www.youtube.com/watch?v=wwg-gWTuB1o&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=2)
+- Lucrédio, D. Vídeo Aula: [Design especulativo - Princípios da programação orientada a objetos](https://www.youtube.com/watch?v=alwkvSaODHc&list=PLaPmgS59eMSFYb42BcmYzVcClCh0t-26L&index=3)
