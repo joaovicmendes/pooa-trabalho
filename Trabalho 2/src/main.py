@@ -1,6 +1,11 @@
 import sys
-from importer import Fetch
+from crawler_fetch import Fetch
+from crawler_processing import Process
 
-f = Fetch()
-documento = f.site_content('http://g1.globo.com')
-print(documento.prettify())
+fetcher = Fetch()
+documento = fetcher.site_content('http://g1.globo.com')
+
+processor = Process(documento, ['a.feed-post-link'])
+noticias = processor.filter()
+for noticia in noticias:
+    print(noticia.string)
