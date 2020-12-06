@@ -7,8 +7,10 @@ from processing.processing import Process
 from processing.retrieve import *
 
 supported_websites = {
-    'g1':  ( 'https://g1.globo.com', RetrieveG1() ),
-    'uol': ( 'https://noticias.uol.com.br/',   RetrieveUol() ),
+    'g1':  ('https://g1.globo.com', RetrieveG1()),
+    'uol': ('https://noticias.uol.com.br/', RetrieveUol()),
+    'estadao': ('https://estadao.com.br', RetrieveEstadao()),
+    'folha': ('https://folha.uol.com.br', RetrieveFolha()),
 }
 
 supported_export_methods = {
@@ -26,7 +28,7 @@ def main():
     articles = process.get_all()
 
     for article in articles:
-        print(article.title())
+        print(article.titles())
 
 def eval_arguments(argv):
     # Filtrando arugmentos
