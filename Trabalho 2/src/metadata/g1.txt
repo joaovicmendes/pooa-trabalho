@@ -1,0 +1,2 @@
+https://g1.globo.com
+SelectCSS a.feed-post-link
