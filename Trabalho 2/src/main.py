@@ -5,16 +5,18 @@ from fetch.fetch import Fetch
 from processing.article import Article
 from processing.processing import Process
 from processing.retrieve import *
+from export.export import Export
+from export.save_to import *
 
 supported_websites = {
-    'g1':  ('https://g1.globo.com', RetrieveG1()),
+    'g1': ('https://g1.globo.com', RetrieveG1()),
     'uol': ('https://noticias.uol.com.br/', RetrieveUol()),
     'estadao': ('https://estadao.com.br', RetrieveEstadao()),
     'folha': ('https://folha.uol.com.br', RetrieveFolha()),
 }
 
 supported_export_methods = {
-    # 'stdout': ExportStdOut(),
+    'stdout': SaveToStdOut()
 }
 
 def main():
@@ -27,8 +29,8 @@ def main():
     process = Process(website_content, retrieve_strategy)
     articles = process.get_all()
 
-    for article in articles:
-        print(article.titles())
+    export = Export(export_strategy)
+    export.execute(articles)
 
 def eval_arguments(argv):
     # Filtrando arugmentos
@@ -52,15 +54,14 @@ def eval_arguments(argv):
             print(key)
         exit()
 
-    # try:
-    #     export_strategy = supported_export_methods[export_name]
-    # except KeyError:
-    #     print("Método de exportação '%s' não suportado." % export_strategy)
-    #     print("Disponíveis:")
-    #     for key in super:
-    #         print(key)
-    #     exit()
-    export_strategy = None
+    try:
+        export_strategy = supported_export_methods[export_name]
+    except KeyError:
+        print("Método de exportação '%s' não suportado." % export_strategy)
+        print("Disponíveis:")
+        for key in supported_export_methods:
+            print(key)
+        exit()
 
     return url, retrieve_strategy, export_strategy
 
