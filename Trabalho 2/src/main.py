@@ -16,7 +16,8 @@ supported_websites = {
 }
 
 supported_export_methods = {
-    'stdout': SaveToStdOut()
+    'stdout': SaveToStdOut(), 
+    'csv': SaveToCSV()
 }
 
 def main():
