@@ -1,25 +1,66 @@
 import sys
-from crawler_fetch import Fetch
-from crawler_processing import Process
-from crawler_metadata import Metadata, MetadataRetrieve
 
-# Objetos auxiliares
-mdata_retrieve = MetadataRetrieve()
-fetch = Fetch()
+# Módulos locais
+from fetch.fetch import Fetch
+from processing.article import Article
+from processing.processing import Process
+from processing.retrieve import *
 
-# Recuperando argumentos para o programa
-website_name = sys.argv[1]
-# export_method = sys.argv[2]
+supported_websites = {
+    'g1':  ( 'https://g1.globo.com', RetrieveG1() ),
+    'uol': ( 'https://noticias.uol.com.br/',   RetrieveUol() ),
+}
 
-# Recuperando metadados do site desejado
-metadata = mdata_retrieve.get(website_name)
+supported_export_methods = {
+    # 'stdout': ExportStdOut(),
+}
 
-# Buscando página principal
-website_content = fetch.site_content(metadata.URL)
+def main():
+    url, retrieve_strategy, export_strategy = eval_arguments(sys.argv)
 
-# Processando os dados para extrair notícias
-process = Process(website_content, metadata.parameters)
-list = process.get_all()
+    # Recuperando página principal do website
+    website_content = Fetch.site_content(url)
 
-for item in list:
-    print(item.string)
+    # Extraindo notícias da página obtida
+    process = Process(website_content, retrieve_strategy)
+    articles = process.get_all()
+
+    for article in articles:
+        print(article.title())
+
+def eval_arguments(argv):
+    # Filtrando arugmentos
+    if len(sys.argv) < 2:
+        print("Argumentos insuficientes. Tente:")
+        print(" python main.py <site> [método de exportação]")
+        exit()
+    elif len(sys.argv) == 2:
+        website_name = sys.argv[1]
+        export_name = 'stdout'
+    else:
+        website_name = sys.argv[1]
+        export_name = sys.argv[2]
+
+    try:
+        url, retrieve_strategy = supported_websites[website_name]
+    except KeyError:
+        print("Website '%s' não suportado." % website_name)
+        print("Disponíveis:")
+        for key in supported_websites:
+            print(key)
+        exit()
+
+    # try:
+    #     export_strategy = supported_export_methods[export_name]
+    # except KeyError:
+    #     print("Método de exportação '%s' não suportado." % export_strategy)
+    #     print("Disponíveis:")
+    #     for key in super:
+    #         print(key)
+    #     exit()
+    export_strategy = None
+
+    return url, retrieve_strategy, export_strategy
+
+if __name__ == "__main__":
+    main()
