@@ -19,19 +19,19 @@ Para este trabalho foi proposta a construção de uma ferramenta para encontrar 
 
 As tecnologias utilizadas foram a linguagem `python` na versão 3.8, a biblioteca `BeautifulSoup` para a manipulação do HTML e a biblioteca `request` para recuperar o código fonte do site.
 
-O código foi dividido em três módulos. O módulo `fetch` é responsável por acessar a URL do site e retornar um objeto do tipo `BeautifulSoup` com o código da página. O módulo `processing` realiza a filtragem e demais processamentos das notícias. Por fim, o módulo `export` salva as informações.
+O código foi dividido em três módulos. O módulo `fetch` é responsável por acessar a URL do site e retornar um objeto do tipo `BeautifulSoup` com o código da página. O módulo `processing` realiza a conversão dos elementos HTML para objetos do tipo `Article` e demais processamentos das notícias. Por fim, o módulo `export` salva ou apresenta ao usuário as informações.
 
 ### Como ampliar a aplicação
 
 A primeira extensão proposta é a de adicionar novos sites de notícia. Para isso, utilizamos o *design pattern* **Strategy**. Assim, no módulo `processing` temos uma classe abstrata `Retrieve`, com um método `get(page_content)`, que retorna uma lista de objetos do tipo `Article`. 
 
-Para cada site suportado, implementamos uma classe `RetrieveNomeSite` (ex: `RetrieveG1`, `RetrieveUol`), que realiza a extração adequada considerando as particularidades de cada site. Dessa maneira, adicionar um novo site consiste em implementar uma nova versão da classe `Retrieve` e na função `main` atualizar o dicionário `supported_websites` com o nome do novo site como chave, e o conteúdo uma tupla, com o par URL e a nova `Retrieve`.
+Para cada site suportado, implementamos uma classe `RetrieveNomeSite` (ex: `RetrieveG1`, `RetrieveUol`), que realiza a extração adequada considerando as particularidades de cada site. Dessa maneira, adicionar um novo site consiste em implementar uma nova versão da classe `Retrieve` e atualizar o dicionário `supported_websites` na função `main`, com o nome do novo site como chave, e uma tupla com o par URL e a nova `Retrieve` como conteúdo apontado.
 ```python
     supported_websites = {
         'g1':  ('https://g1.globo.com', RetrieveG1()),
         'uol': ('https://noticias.uol.com.br/', RetrieveUol()),
-        ...
-        'meu_site': ('https://meu_site.com', RetrieveMeuSite())
+        
+        'novo_site': ('https://novo_site.com', RetrieveNovoSite())
     }
 ```
 O restante do código irá utilizar os conteúdos deste dicionário para detectar os sites suportados e acessar as funções corretas.
