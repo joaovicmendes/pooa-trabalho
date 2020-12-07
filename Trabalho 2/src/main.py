@@ -34,11 +34,13 @@ def main():
     export.execute(articles)
 
 def eval_arguments(argv):
+    error_message = ""
+    list_to_print = []
+
     # Filtrando arugmentos
     if len(sys.argv) < 2:
-        print("Argumentos insuficientes. Tente:")
-        print(" python main.py <site> [método de exportação]")
-        exit()
+        erro_message = "Argumentos insuficientes. Tente:\n python main.py <site> [método de exportação]"
+        error_exit(erro_message)
     elif len(sys.argv) == 2:
         website_name = sys.argv[1]
         export_name = 'stdout'
@@ -50,23 +52,25 @@ def eval_arguments(argv):
     try:
         url, retrieve_strategy = supported_websites[website_name]
     except KeyError:
-        print("Website '%s' não suportado." % website_name)
-        print("Disponíveis:")
-        for key in supported_websites:
-            print(key)
-        exit()
+        error_message = ("Website '%s' não suportado.\n" % website_name) + "Disponíveis:"
+        list_to_print = list(supported_websites.keys())
+        error_exit(error_message, list_to_print)
 
     # Recuperando a estratégia de exportação adequada segundo argumento passado
     try:
         export_strategy = supported_export_methods[export_name]
     except KeyError:
-        print("Método de exportação '%s' não suportado." % export_strategy)
-        print("Disponíveis:")
-        for key in supported_export_methods:
-            print(key)
-        exit()
+        error_message += ("Método de exportação '%s' não suportado.\n" % export_name) + "Disponíveis:"
+        list_to_print = list(supported_export_methods.keys())
+        error_exit(error_message, list_to_print)
 
     return url, retrieve_strategy, export_strategy
+
+def error_exit(message, list=[]):
+    print(message)
+    for value in list:
+        print(" ", value)
+    exit()
 
 if __name__ == "__main__":
     main()
