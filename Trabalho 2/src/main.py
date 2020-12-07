@@ -46,6 +46,7 @@ def eval_arguments(argv):
         website_name = sys.argv[1]
         export_name = sys.argv[2]
 
+    # Recuperando a URL e estratégia adequada segundo argumento passado
     try:
         url, retrieve_strategy = supported_websites[website_name]
     except KeyError:
@@ -55,6 +56,7 @@ def eval_arguments(argv):
             print(key)
         exit()
 
+    # Recuperando a estratégia de exportação adequada segundo argumento passado
     try:
         export_strategy = supported_export_methods[export_name]
     except KeyError:
