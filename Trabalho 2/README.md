@@ -21,6 +21,14 @@ As tecnologias utilizadas foram a linguagem `python` na versão 3.8, a bibliotec
 
 O código foi dividido em três módulos. O módulo `fetch` é responsável por acessar a URL do site e retornar um objeto do tipo `BeautifulSoup` com o código da página. O módulo `processing` realiza a conversão dos elementos HTML para objetos do tipo `Article` e demais processamentos das notícias. Por fim, o módulo `export` salva ou apresenta ao usuário as informações.
 
+### Como utilizar a aplicação
+
+Com o `python 3.8`, `BeautifulSoup` e `request` instalados, de dentro da pasta `src/` basta executar: 
+```
+    python main.py <nome_do_site> [método de exportação]
+```
+Em que, o `nome_do_site` é um dentre {g1, uol, estadao, folha} e `método de exportação` é um dentre {stdout, csv}. Caso o método de exportação não seja informado, ele considerará `stdout` como a opção padrão.
+
 ### Como ampliar a aplicação
 
 A primeira extensão proposta é a de adicionar novos sites de notícia. Para isso, utilizamos o *design pattern* **Strategy**. Assim, no módulo `processing` temos uma classe abstrata `Retrieve`, com um método `get(page_content)`, que retorna uma lista de objetos do tipo `Article`. 
@@ -35,3 +43,7 @@ Para cada site suportado, implementamos uma classe `RetrieveNomeSite` (ex: `Retr
     }
 ```
 O restante do código irá utilizar os conteúdos deste dicionário para detectar os sites suportados e acessar as funções corretas.
+
+A segunda extensão proposta é a de adicionar diferentes algoritmos, como baixar os conteúdos da notícia, mostrá-las para o usuário, entre outras. 
+
+De forma análoga, utilizamos também o padrão de projeto **Strategy** no módulo `export`. Nele, temos a classe abstrata `SaveTo`, com as implementações concretas `SaveToCSV` e `SaveToStdOut`. Dependendo do argumento passado para o programa ele instancia a estratégia adequada na classe `Export`. Assim, tal qual adicionar um novo site, basta implementar uma classe `SaveTo` adequada e adicionar ao dicionário `supported_export_methods` para funcionar em conjunto ao sistema.
