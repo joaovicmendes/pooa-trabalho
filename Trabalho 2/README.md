@@ -47,3 +47,12 @@ O restante do código irá utilizar os conteúdos deste dicionário para detecta
 A segunda extensão proposta é a de adicionar diferentes algoritmos, como baixar os conteúdos da notícia, mostrá-las para o usuário, entre outras. 
 
 De forma análoga, utilizamos também o padrão de projeto **Strategy** no módulo `export`. Nele, temos a classe abstrata `SaveTo`, com as implementações concretas `SaveToCSV` e `SaveToStdOut`. Dependendo do argumento passado para o programa ele instancia a estratégia adequada na classe `Export`. Assim, tal qual adicionar um novo site, basta implementar uma classe `SaveTo` adequada e adicionar ao dicionário `supported_export_methods` para funcionar em conjunto ao sistema.
+```python
+    supported_export_methods = {
+        'stdout': SaveToStdOut(), 
+        'csv': SaveToCSV()
+        
+        'novo_metodo': SaveToNovoMetodo()
+    }
+```
+
