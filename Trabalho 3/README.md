@@ -1,4 +1,4 @@
-# Programação Orientada a Objetos Avançada (1001542) - Trabalho 2
+# Programação Orientada a Objetos Avançada (1001542) - Trabalho 3
 
 Universidade Federal de São Carlos – UFSCar \
 Departamento de Computação \
